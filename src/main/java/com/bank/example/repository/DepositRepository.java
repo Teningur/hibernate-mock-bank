@@ -12,7 +12,11 @@ import java.util.List;
 @Repository
 public interface DepositRepository extends JpaRepository<Deposit, Long> {
 
-    @Query("SELECT DISTINCT d FROM Deposit d LEFT JOIN FETCH d.account LEFT JOIN FETCH d.interests WHERE d.account.id IN :accountIds")
+    @Query("SELECT DISTINCT d FROM Deposit d " +
+            "LEFT JOIN FETCH d.account a " +
+            "LEFT JOIN FETCH a.closeRequest " +
+            "LEFT JOIN FETCH d.interests " +
+            "WHERE d.account.id IN :accountIds")
     List<Deposit> findDepositsByAccountIds(@Param("accountIds") List<Long> accountIds);
 
 

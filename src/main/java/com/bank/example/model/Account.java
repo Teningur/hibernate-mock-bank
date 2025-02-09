@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.*;
@@ -58,7 +59,7 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private CloseRequest closeRequest = new CloseRequest();
 
 
@@ -107,18 +108,4 @@ public class Account {
         return Objects.hash(id, firstName, lastName);
     }
 
-//    @Override
-//    public String toString() {
-//        return "Account{" +
-//                "id=" + id +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", tariff=" + tariff +
-//                ", settings=" + settings +
-//                ", documentScans=" + documentScans +
-//                ", cashBackCategories=" + cashBackCategories +
-//                ", cashBackCompanies=" + cashBackCompanies +
-//                ", deposits=" + deposits +
-//                '}';
-//    }
 }
