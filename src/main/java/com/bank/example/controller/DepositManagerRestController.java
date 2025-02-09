@@ -1,7 +1,5 @@
 package com.bank.example.controller;
 
-import com.bank.example.model.Account;
-import com.bank.example.service.AccountService;
 import com.bank.example.service.DepositService;
 import com.bank.example.sqltracker.AssertSqlCount;
 import com.bank.example.sqltracker.QueryCountInfoHolder;

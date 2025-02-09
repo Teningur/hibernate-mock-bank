@@ -1,13 +1,10 @@
 package com.bank.example.dao;
 
-import com.bank.example.dto.AccountInfoDto;
+
 import com.bank.example.dto.AccountSumDto;
 import com.bank.example.model.Account;
 import org.hibernate.transform.ResultTransformer;
-import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -17,8 +14,7 @@ public class AccountDaoImpl extends AbstractDao<Long, Account> implements Accoun
     public List<Account> getAccountsByIds(List<Long> accountIds) {
         return entityManager.createQuery(
                 "SELECT a FROM Account a WHERE a.id IN :accountIds",
-                Account.class
-        )
+                Account.class)
                 .setParameter("accountIds", accountIds)
                 .getResultList();
     }
