@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,8 +40,9 @@ public class DepositServiceImpl extends AbstractService<Long, Deposit> implement
     public void deleteOutDatedDeposit(List<Long> accountIds) {
         List<Deposit> deposits = depositRepository.findDepositsByAccountIds(accountIds);
 
-        Map<Long, Card> defaultCards = cardRepository.findDefaultCardsByAccountIds(accountIds).stream()
-                .collect(Collectors.toMap(card -> card.getAccount().getId(), card -> card));
+        List<Card> defaultCardsList = cardRepository.findDefaultCardsByAccountIds(accountIds);
+
+        Map<Long, Card> defaultCards = convertCardsToMap(defaultCardsList);
 
         for (Deposit deposit : deposits) {
             if (DAYS.between(deposit.getCloseDate(), LocalDate.now()) > 1) {
@@ -55,14 +57,22 @@ public class DepositServiceImpl extends AbstractService<Long, Deposit> implement
     }
 
 
-        @Override
-        @Transactional
-        public List<Long> removeAllDepositsByAccountId (Long accountId){
-            Account account = accountService.getByKey(accountId);
-            List<Long> depositIds = account.getDeposits().stream().map(Deposit::getId).collect(Collectors.toList());
-            account.setDeposits(null);
+    @Override
+    @Transactional
+    public List<Long> removeAllDepositsByAccountId(Long accountId) {
+        Account account = accountService.getByKey(accountId);
+        List<Long> depositIds = account.getDeposits().stream().map(Deposit::getId).collect(Collectors.toList());
+        account.setDeposits(null);
 
-            return depositIds;
-        }
+        return depositIds;
     }
+
+    private Map<Long, Card> convertCardsToMap(List<Card> cards) {
+        Map<Long, Card> cardMap = new HashMap<>();
+        for (Card card : cards) {
+            cardMap.put(card.getAccount().getId(), card);
+        }
+        return cardMap;
+    }
+}
 
