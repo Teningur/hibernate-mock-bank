@@ -1,9 +1,12 @@
 package com.bank.example.service;
 
-import com.bank.example.dao.GenericDao;
+
 import com.bank.example.dao.OperatorDao;
 import com.bank.example.model.Operator;
+import com.bank.example.repository.OperatorRatingRepository;
 import org.springframework.stereotype.Service;
+
+
 
 @Service
 public class OperatorServiceImpl extends AbstractService<Long, Operator> implements OperatorService {
@@ -14,4 +17,5 @@ public class OperatorServiceImpl extends AbstractService<Long, Operator> impleme
         super(operatorDao);
         this.operatorDao = operatorDao;
     }
+
 }

@@ -1,8 +1,6 @@
 package com.bank.example.converter;
 
-import com.bank.example.dto.ManagerDto;
 import com.bank.example.dto.OperatorDto;
-import com.bank.example.model.Manager;
 import com.bank.example.model.Operator;
 
 import java.util.ArrayList;
