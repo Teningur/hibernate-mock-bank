@@ -2,6 +2,7 @@ package com.bank.example.service;
 
 
 import com.bank.example.dto.CashBackCategoryDetailedDto;
+import com.bank.example.dto.CashBackCategoryDto;
 import com.bank.example.model.CashBackCategory;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,4 +17,6 @@ public interface CashBackCategoryService extends GenericService<Long, CashBackCa
     void breakCategoryAccountLinks(Long categoryId);
 
     List<CashBackCategoryDetailedDto> getDetailedCategories();
+
+    List<CashBackCategoryDto> getCashBackCategoriesWithCompanyAndAmount(Long accountId);
 }

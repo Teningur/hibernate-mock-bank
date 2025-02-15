@@ -16,4 +16,7 @@ public interface CashBackCategoryRepository extends JpaRepository<CashBackCatego
             "JOIN FETCH c.cashBackCompanies co " +
             "JOIN FETCH co.uploader cu")
     List<CashBackCategory> findAllDetailed();
+
+    @Query("select c from CashBackCategory c join c.accounts a where a.id =:accountId")
+    List<CashBackCategory> findByAccountId(Long accountId);
 }

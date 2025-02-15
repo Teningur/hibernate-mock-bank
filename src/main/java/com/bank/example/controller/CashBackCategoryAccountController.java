@@ -38,7 +38,7 @@ public class CashBackCategoryAccountController {
 
     @GetMapping("/withCompanyAndAmount")
     public ResponseEntity<?> getCategoryDtoWithCompanyAndAmount(@PathVariable Long accountId) {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(cashBackCategoryService.getCashBackCategoriesWithCompanyAndAmount(accountId));
     }
 
     @GetMapping("/all")
